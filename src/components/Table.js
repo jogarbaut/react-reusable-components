@@ -1,12 +1,15 @@
-// Assumes data is an array of objects
+import { Fragment } from "react"
 
+// Assumes data is an array of objects
 const Table = ({ data, config, keyFn }) => {
   const renderedHeaders = config.map((column) => {
+    if (column.header) {
+      return <Fragment key={column.label}>{column.header()}</Fragment>
+    }
     return <th key={column.label}>{column.label}</th>
   })
 
   const renderedRows = data.map((rowData) => {
-    
     const renderedCells = config.map((column) => {
       return (
         <td className="p-2" key={column.label}>
